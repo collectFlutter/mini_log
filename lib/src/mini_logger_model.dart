@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 ///  - E : 红色，Error 出现错误，是最需要关注解决的。
 /// E>W>I>D>V
 ///
-class MiniLogLevelEnum {
+class MiniLoggerLevelEnum {
   static final String _levelStr = "VDIWE";
   final String level;
   final Color color;
@@ -16,16 +16,16 @@ class MiniLogLevelEnum {
   /// 服务器端对应级别
   final String serverTag;
 
-  const MiniLogLevelEnum._(this.level, this.color, this.serverTag);
+  const MiniLoggerLevelEnum._(this.level, this.color, this.serverTag);
 
-  static final MiniLogLevelEnum V = MiniLogLevelEnum._('V', Colors.black, 'trace');
-  static final MiniLogLevelEnum D = MiniLogLevelEnum._('D', Colors.blue, 'debug');
-  static final MiniLogLevelEnum I = MiniLogLevelEnum._('I', Colors.green, 'info');
-  static final MiniLogLevelEnum W = MiniLogLevelEnum._('W', Colors.orange, 'warn');
-  static final MiniLogLevelEnum E = MiniLogLevelEnum._('E', Colors.red, 'error');
-  static final List<MiniLogLevelEnum> all = [V, D, I, W, E];
+  static final MiniLoggerLevelEnum V = MiniLoggerLevelEnum._('V', Colors.black, 'trace');
+  static final MiniLoggerLevelEnum D = MiniLoggerLevelEnum._('D', Colors.blue, 'debug');
+  static final MiniLoggerLevelEnum I = MiniLoggerLevelEnum._('I', Colors.green, 'info');
+  static final MiniLoggerLevelEnum W = MiniLoggerLevelEnum._('W', Colors.orange, 'warn');
+  static final MiniLoggerLevelEnum E = MiniLoggerLevelEnum._('E', Colors.red, 'error');
+  static final List<MiniLoggerLevelEnum> all = [V, D, I, W, E];
 
-  static MiniLogLevelEnum of(String level) {
+  static MiniLoggerLevelEnum of(String level) {
     var index = _levelStr.indexOf(level.toUpperCase());
     if (index > 0) {
       return all[index];
@@ -36,7 +36,7 @@ class MiniLogLevelEnum {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      (other is MiniLogLevelEnum && other.runtimeType == runtimeType && level == other.level);
+      (other is MiniLoggerLevelEnum && other.runtimeType == runtimeType && level == other.level);
 
   @override
   int get hashCode => level.hashCode;
@@ -44,14 +44,14 @@ class MiniLogLevelEnum {
   @override
   String toString() => 'LogTypeEnum{level: $level, color: $color, serverTag: $serverTag}';
 
-  bool operator >=(MiniLogLevelEnum other) =>
+  bool operator >=(MiniLoggerLevelEnum other) =>
       other == null || _levelStr.indexOf(this.level) >= _levelStr.indexOf(other.level);
 }
 
 /// 日志 Model
-class MiniLogModel {
+class MiniLoggerModel {
   /// 日志类型
-  MiniLogLevelEnum level;
+  MiniLoggerLevelEnum level;
 
   /// Tag
   String tag;
@@ -65,7 +65,7 @@ class MiniLogModel {
   /// 状态，0-创建，1-提交
   int status;
 
-  MiniLogModel(this.level, this.tag, this.content, this.createTime, this.status);
+  MiniLoggerModel(this.level, this.tag, this.content, this.createTime, this.status);
 
   @override
   String toString() => '[$tag][${level.level}][${this.createTime.toString()}]: $content';
@@ -79,7 +79,7 @@ class QueryLogParameter {
   int pageSize;
 
   /// 包含的等级
-  List<MiniLogLevelEnum> level;
+  List<MiniLoggerLevelEnum> level;
 
   /// 内容查询的关键字
   String searchKey;

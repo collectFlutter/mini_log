@@ -1,11 +1,10 @@
 import 'dart:async';
 
-import '../mini_log.dart';
-import 'model.dart';
+import 'mini_logger_model.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
-class MiniLogDBManage {
+class MiniLoggerDBManage {
   final String _dbName = 'mini_log';
   final String _logTabName = 'TAB_MINI_LOG';
   final String _idKey = 'id';
@@ -15,13 +14,13 @@ class MiniLogDBManage {
   final String _createTimeKey = 'createTime';
   final String _statusKey = 'status';
 
-  static MiniLogDBManage _manage;
+  static MiniLoggerDBManage _manage;
 
-  MiniLogDBManage._();
+  MiniLoggerDBManage._();
 
-  static MiniLogDBManage internal() {
+  static MiniLoggerDBManage internal() {
     if (_manage == null) {
-      _manage = MiniLogDBManage._();
+      _manage = MiniLoggerDBManage._();
     }
     return _manage;
   }
@@ -51,7 +50,7 @@ class MiniLogDBManage {
     """);
   }
 
-  FutureOr<int> insert(MiniLogModel log) async {
+  FutureOr<int> insert(MiniLoggerModel log) async {
     var _dbClient = await _initDb();
     int value = await _dbClient.insert(
       _logTabName,
@@ -66,7 +65,7 @@ class MiniLogDBManage {
     return value;
   }
 
-  FutureOr<List<MiniLogModel>> query(QueryLogParameter parameter) async {
+  FutureOr<List<MiniLoggerModel>> query(QueryLogParameter parameter) async {
     StringBuffer where = _getWhereBuffer(parameter);
     where.write(" ORDER BY $_createTimeKey DESC");
 
@@ -81,8 +80,8 @@ class MiniLogDBManage {
         columns: [_levelKey, _tagKey, _contentKey, _createTimeKey, _statusKey],
         where: where.toString());
     return maps
-        .map((e) => MiniLogModel(
-              MiniLogLevelEnum.of(e[_levelKey]),
+        .map((e) => MiniLoggerModel(
+              MiniLoggerLevelEnum.of(e[_levelKey]),
               e[_tagKey],
               e[_contentKey],
               DateTime.tryParse(e[_createTimeKey]),

@@ -3,21 +3,21 @@ import 'dart:io';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
-import 'package:mini_log/mini_log.dart';
+import 'package:mini_logger/mini_logger.dart';
 import 'package:english_words/english_words.dart';
 
 void main() {
-  L.init(MiniLogConfig(
+  L.init(MiniLoggerConfig(
     tag: 'mini_log_example',
     withSQLite: true,
     upLogEvent: upLog,
-    minSQLiteLevel: MiniLogLevelEnum.V,
+    minSQLiteLevel: MiniLoggerLevelEnum.V,
     withPrintColor: !Platform.isIOS,
   ));
   runApp(MyApp());
 }
 
-Future<bool> upLog(MiniLogModel log) async {
+Future<bool> upLog(MiniLoggerModel log) async {
   L.D("正在提交日志：$log", withSQLite: false, withUp: false, tag: '上传日志');
   return true;
 }
@@ -48,7 +48,7 @@ class _MyHomePageState extends State<MyHomePage> {
   TextEditingController _controller;
   QueryLogParameter _parameter = QueryLogParameter();
 
-  List<MiniLogModel> _list = [];
+  List<MiniLoggerModel> _list = [];
 
   int _counter = 0;
 
@@ -121,7 +121,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: ListView.builder(
           itemBuilder: (ctx, index) {
             if (index.isOdd) return Divider();
-            MiniLogModel _log = _list[(index / 2).floor()];
+            MiniLoggerModel _log = _list[(index / 2).floor()];
             return Text(_log.toString(), style: TextStyle(color: _log.level.color));
           },
           itemCount: _list.length * 2,

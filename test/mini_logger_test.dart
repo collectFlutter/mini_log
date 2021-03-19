@@ -1,7 +1,7 @@
 import 'package:ansicolor/ansicolor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mini_log/mini_log.dart';
+import 'package:mini_logger/mini_logger.dart';
 
 void main() {
   List.generate(10, (index) => print(((index+1)/2).round()-1));
@@ -9,7 +9,7 @@ void main() {
 
 void testMiniLogConfig(){
   test('测试MiniLogConfig类', () {
-    final config = MiniLogConfig();
+    final config = MiniLoggerConfig();
     expect(config.withPrint, true);
     expect(config.minPrintLevel?.level, 'V');
     expect(config.minUpLevel?.level, 'W');
