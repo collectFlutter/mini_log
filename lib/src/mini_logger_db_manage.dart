@@ -5,8 +5,8 @@ import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
 class MiniLoggerDBManage {
-  final String _dbName = 'mini_log';
-  final String _logTabName = 'TAB_MINI_LOG';
+  final String _dbName = 'mini_logger';
+  final String _logTabName = 'tab_mini_logger';
   final String _idKey = 'id';
   final String _levelKey = 'level';
   final String _tagKey = 'tag';
