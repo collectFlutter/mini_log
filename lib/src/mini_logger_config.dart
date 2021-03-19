@@ -3,7 +3,7 @@ import 'mini_logger_model.dart';
 /// 日志上传事件
 /// [value] 等待上传的日志！
 /// [value] 反馈是否处理成功！
-typedef UpLogEvent = Future<bool> Function(MiniLogModel value);
+typedef UpLogEvent = Future<bool> Function(MiniLoggerModel value);
 
 /// 日志配置
 class MiniLoggerConfig {

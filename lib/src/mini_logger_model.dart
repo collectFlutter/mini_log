@@ -49,7 +49,7 @@ class MiniLoggerLevelEnum {
 }
 
 /// 日志 Model
-class MiniLogModel {
+class MiniLoggerModel {
   /// 日志类型
   MiniLoggerLevelEnum level;
 
@@ -65,7 +65,7 @@ class MiniLogModel {
   /// 状态，0-创建，1-提交
   int status;
 
-  MiniLogModel(this.level, this.tag, this.content, this.createTime, this.status);
+  MiniLoggerModel(this.level, this.tag, this.content, this.createTime, this.status);
 
   @override
   String toString() => '[$tag][${level.level}][${this.createTime.toString()}]: $content';

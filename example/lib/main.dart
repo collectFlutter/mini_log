@@ -17,7 +17,7 @@ void main() {
   runApp(MyApp());
 }
 
-Future<bool> upLog(MiniLogModel log) async {
+Future<bool> upLog(MiniLoggerModel log) async {
   L.D("正在提交日志：$log", withSQLite: false, withUp: false, tag: '上传日志');
   return true;
 }
@@ -48,7 +48,7 @@ class _MyHomePageState extends State<MyHomePage> {
   TextEditingController _controller;
   QueryLogParameter _parameter = QueryLogParameter();
 
-  List<MiniLogModel> _list = [];
+  List<MiniLoggerModel> _list = [];
 
   int _counter = 0;
 
@@ -121,7 +121,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: ListView.builder(
           itemBuilder: (ctx, index) {
             if (index.isOdd) return Divider();
-            MiniLogModel _log = _list[(index / 2).floor()];
+            MiniLoggerModel _log = _list[(index / 2).floor()];
             return Text(_log.toString(), style: TextStyle(color: _log.level.color));
           },
           itemCount: _list.length * 2,

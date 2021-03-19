@@ -50,7 +50,7 @@ class MiniLoggerDBManage {
     """);
   }
 
-  FutureOr<int> insert(MiniLogModel log) async {
+  FutureOr<int> insert(MiniLoggerModel log) async {
     var _dbClient = await _initDb();
     int value = await _dbClient.insert(
       _logTabName,
@@ -65,7 +65,7 @@ class MiniLoggerDBManage {
     return value;
   }
 
-  FutureOr<List<MiniLogModel>> query(QueryLogParameter parameter) async {
+  FutureOr<List<MiniLoggerModel>> query(QueryLogParameter parameter) async {
     StringBuffer where = _getWhereBuffer(parameter);
     where.write(" ORDER BY $_createTimeKey DESC");
 
@@ -81,7 +81,7 @@ class MiniLoggerDBManage {
         columns: [_levelKey, _tagKey, _contentKey, _createTimeKey, _statusKey],
         where: where.toString());
     return maps
-        .map((e) => MiniLogModel(
+        .map((e) => MiniLoggerModel(
               MiniLoggerLevelEnum.of(e[_levelKey])!,
               e[_tagKey],
               e[_contentKey],

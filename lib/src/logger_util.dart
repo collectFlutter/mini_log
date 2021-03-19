@@ -50,7 +50,7 @@ class L {
     }
   }
 
-  static Future<List<MiniLogModel>> queryLogs([QueryLogParameter? _parameter]) async {
+  static Future<List<MiniLoggerModel>> queryLogs([QueryLogParameter? _parameter]) async {
     if (_config.withSQLite ?? false)
       return await MiniLoggerDBManage.internal().query(_parameter ?? QueryLogParameter());
     return [];
@@ -73,7 +73,7 @@ class L {
     withSQLite = withSQLite ?? ((_config.withSQLite ?? false) && level >= _config.minSQLiteLevel);
     String content = object.toString();
     DateTime _now = DateTime.now();
-    MiniLogModel _log = MiniLogModel(level, tag, content, _now, 0);
+    MiniLoggerModel _log = MiniLoggerModel(level, tag, content, _now, 0);
 
     if (withUp) {
       _config.upLogEvent!(_log).then((value) {
