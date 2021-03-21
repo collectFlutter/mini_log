@@ -1,14 +1,22 @@
+## 2.0.2 - 2021-03-21
+
+* change fun name
+
+## 2.0.1 - 2021-03-21
+
+* code format
+
 ## 2.0.0 - 2021-03-19.
 
 * null-safety
 
 ## 1.0.1 - 2021-03-19.
 
-* 修改数据库名称，标名称
+* Modify database name, data table name
 
 ## 1.0.0 - 2021-03-19.
 
-* 日志打印
-* 可控制颜色
-* 可存储本地、可查询
-* 可设置上传事件
+* Log print
+* Controllable color
+* Can be stored locally and queried
+* Upload event can be set

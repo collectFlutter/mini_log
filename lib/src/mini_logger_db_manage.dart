@@ -122,7 +122,11 @@ class MiniLoggerDBManage {
             "strftime('s',$_createTimeKey) <= strftime('s','${parameter.maxTime!.toIso8601String()}')");
     }
     if (parameter.tag != null) {
-      where..write(and)..write(_tagKey)..write(' = ')..write("'${parameter.tag}'");
+      where
+        ..write(and)
+        ..write(_tagKey)
+        ..write(' = ')
+        ..write("'${parameter.tag}'");
     }
     if (parameter.searchKey != null && parameter.searchKey!.isNotEmpty) {
       where

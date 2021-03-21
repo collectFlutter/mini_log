@@ -18,7 +18,7 @@ void main() {
 }
 
 Future<bool> upLog(MiniLoggerModel log) async {
-  L.D("正在提交日志：$log", withSQLite: false, withUp: false, tag: '上传日志');
+  L.d("正在提交日志：$log", withSQLite: false, withUp: false, tag: '上传日志');
   return true;
 }
 
@@ -65,22 +65,23 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _add() async {
     int index = (_counter++) % 5;
-    var log = generateWordPairs().take(math.Random().nextInt(50) + 20).join(' ');
+    var log =
+        generateWordPairs().take(math.Random().nextInt(50) + 20).join(' ');
     switch (index) {
       case 0:
-        L.V(log);
+        L.v(log);
         break;
       case 1:
-        L.D(log, withUp: math.Random().nextBool());
+        L.d(log, withUp: math.Random().nextBool());
         break;
       case 2:
-        L.I(log, withSQLite: math.Random().nextBool());
+        L.i(log, withSQLite: math.Random().nextBool());
         break;
       case 3:
-        L.W(log, withUp: false);
+        L.w(log, withUp: false);
         break;
       case 4:
-        L.E(log, withSQLite: true);
+        L.e(log, withSQLite: true);
         break;
     }
     _query();
@@ -122,7 +123,8 @@ class _MyHomePageState extends State<MyHomePage> {
           itemBuilder: (ctx, index) {
             if (index.isOdd) return Divider();
             MiniLoggerModel _log = _list[(index / 2).floor()];
-            return Text(_log.toString(), style: TextStyle(color: _log.level.color));
+            return Text(_log.toString(),
+                style: TextStyle(color: _log.level.color));
           },
           itemCount: _list.length * 2,
         ),
@@ -137,7 +139,8 @@ class _MyHomePageState extends State<MyHomePage> {
             backgroundColor: Colors.red,
           ),
           SizedBox(height: 20),
-          FloatingActionButton(onPressed: _add, tooltip: 'add', child: Icon(Icons.add))
+          FloatingActionButton(
+              onPressed: _add, tooltip: 'add', child: Icon(Icons.add))
         ],
       ), // This t
     );
