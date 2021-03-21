@@ -16,48 +16,56 @@ class L {
   }
 
   /// Verbose就是冗长啰嗦的。通常表达开发调试过程中的一些详细信息。
-  static void V(Object object, {String tag, bool withSQLite, bool withUp}) {
+  static void v(Object object, {String tag, bool withSQLite, bool withUp}) {
     if (MiniLoggerLevelEnum.V >= _config.minPrintLevel) {
-      _handleLog(MiniLoggerLevelEnum.V, object, tag: tag, withSQLite: withSQLite, withUp: withUp);
+      _handleLog(MiniLoggerLevelEnum.V, object,
+          tag: tag, withSQLite: withSQLite, withUp: withUp);
     }
   }
 
   /// Info来表达一些信息。
-  static void I(Object object, {String tag, bool withSQLite, bool withUp}) {
+  static void i(Object object, {String tag, bool withSQLite, bool withUp}) {
     if (MiniLoggerLevelEnum.I >= _config.minPrintLevel) {
-      _handleLog(MiniLoggerLevelEnum.I, object, tag: tag, withSQLite: withSQLite, withUp: withUp);
+      _handleLog(MiniLoggerLevelEnum.I, object,
+          tag: tag, withSQLite: withSQLite, withUp: withUp);
     }
   }
 
   ///蓝色，Debug来表达调试信息。
-  static void D(Object object, {String tag, bool withSQLite, bool withUp}) {
+  static void d(Object object, {String tag, bool withSQLite, bool withUp}) {
     if (MiniLoggerLevelEnum.D >= _config.minPrintLevel) {
-      _handleLog(MiniLoggerLevelEnum.D, object, tag: tag, withSQLite: withSQLite, withUp: withUp);
+      _handleLog(MiniLoggerLevelEnum.D, object,
+          tag: tag, withSQLite: withSQLite, withUp: withUp);
     }
   }
 
   /// Warn表示警告，但不一定会马上出现错误，开发时有时用来表示特别注意的地方。
-  static void W(Object object, {String tag, bool withSQLite, bool withUp}) {
+  static void w(Object object, {String tag, bool withSQLite, bool withUp}) {
     if (MiniLoggerLevelEnum.W >= _config.minPrintLevel) {
-      _handleLog(MiniLoggerLevelEnum.W, object, tag: tag, withSQLite: withSQLite, withUp: withUp);
+      _handleLog(MiniLoggerLevelEnum.W, object,
+          tag: tag, withSQLite: withSQLite, withUp: withUp);
     }
   }
 
   ///Error 出现错误，是最需要关注解决的。
-  static void E(Object object, {String tag, bool withSQLite, bool withUp}) {
+  static void e(Object object, {String tag, bool withSQLite, bool withUp}) {
     if (MiniLoggerLevelEnum.E >= _config.minPrintLevel) {
-      _handleLog(MiniLoggerLevelEnum.E, object, tag: tag, withSQLite: withSQLite, withUp: withUp);
+      _handleLog(MiniLoggerLevelEnum.E, object,
+          tag: tag, withSQLite: withSQLite, withUp: withUp);
     }
   }
 
-  static Future<List<MiniLoggerModel>> queryLogs([QueryLogParameter _parameter]) async {
+  static Future<List<MiniLoggerModel>> queryLogs(
+      [QueryLogParameter _parameter]) async {
     if (_config.withSQLite ?? false)
-      return await MiniLoggerDBManage.internal().query(_parameter ?? QueryLogParameter());
+      return await MiniLoggerDBManage.internal()
+          .query(_parameter ?? QueryLogParameter());
     return [];
   }
 
   static Future<int> deleteLog([QueryLogParameter _parameter]) async {
-    return await MiniLoggerDBManage.internal().delete(_parameter ?? QueryLogParameter());
+    return await MiniLoggerDBManage.internal()
+        .delete(_parameter ?? QueryLogParameter());
   }
 
   static void _handleLog(
@@ -68,9 +76,12 @@ class L {
     bool withUp,
   }) {
     tag = tag ?? _config.tag ?? 'mini_log';
-    bool enablePrint = (_config.withPrint ?? false) && level >= _config.minPrintLevel;
-    withUp = _config.upLogEvent != null && (withUp ?? level >= _config.minUpLevel);
-    withSQLite = withSQLite ?? ((_config.withSQLite ?? false) && level >= _config.minSQLiteLevel);
+    bool enablePrint =
+        (_config.withPrint ?? false) && level >= _config.minPrintLevel;
+    withUp =
+        _config.upLogEvent != null && (withUp ?? level >= _config.minUpLevel);
+    withSQLite = withSQLite ??
+        ((_config.withSQLite ?? false) && level >= _config.minSQLiteLevel);
     String content = object.toString();
     DateTime _now = DateTime.now();
     MiniLoggerModel _log = MiniLoggerModel(level, tag, content, _now, 0);
@@ -91,10 +102,14 @@ class L {
     if (enablePrint) {
       int index = 1;
       AnsiPen pen = AnsiPen()
-        ..rgb(r: level.color.red / 255.0, g: level.color.green / 255.0, b: level.color.blue / 255);
+        ..rgb(
+            r: level.color.red / 255.0,
+            g: level.color.green / 255.0,
+            b: level.color.blue / 255);
       while (content.isNotEmpty) {
         if (content.length > 1024) {
-          print(pen("[$tag][${level.level}][${index++}]: ${content.substring(0, 512)}"));
+          print(pen(
+              "[$tag][${level.level}][${index++}]: ${content.substring(0, 512)}"));
           content = content.substring(512);
         } else {
           print(pen("[$tag][${level.level}][${index++}]: $content"));

@@ -18,7 +18,7 @@ void main() {
 }
 
 Future<bool> upLog(MiniLoggerModel log) async {
-  L.D("正在提交日志：$log", withSQLite: false, withUp: false, tag: '上传日志');
+  L.d("正在提交日志：$log", withSQLite: false, withUp: false, tag: '上传日志');
   return true;
 }
 
@@ -68,19 +68,19 @@ class _MyHomePageState extends State<MyHomePage> {
     var log = generateWordPairs().take(math.Random().nextInt(50) + 20).join(' ');
     switch (index) {
       case 0:
-        L.V(log);
+        L.v(log);
         break;
       case 1:
-        L.D(log, withUp: math.Random().nextBool());
+        L.d(log, withUp: math.Random().nextBool());
         break;
       case 2:
-        L.I(log, withSQLite: math.Random().nextBool());
+        L.i(log, withSQLite: math.Random().nextBool());
         break;
       case 3:
-        L.W(log, withUp: false);
+        L.w(log, withUp: false);
         break;
       case 4:
-        L.E(log, withSQLite: true);
+        L.e(log, withSQLite: true);
         break;
     }
     _query();

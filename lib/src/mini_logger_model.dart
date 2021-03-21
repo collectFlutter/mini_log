@@ -18,11 +18,16 @@ class MiniLoggerLevelEnum {
 
   const MiniLoggerLevelEnum._(this.level, this.color, this.serverTag);
 
-  static final MiniLoggerLevelEnum V = MiniLoggerLevelEnum._('V', Colors.black, 'trace');
-  static final MiniLoggerLevelEnum D = MiniLoggerLevelEnum._('D', Colors.blue, 'debug');
-  static final MiniLoggerLevelEnum I = MiniLoggerLevelEnum._('I', Colors.green, 'info');
-  static final MiniLoggerLevelEnum W = MiniLoggerLevelEnum._('W', Colors.orange, 'warn');
-  static final MiniLoggerLevelEnum E = MiniLoggerLevelEnum._('E', Colors.red, 'error');
+  static final MiniLoggerLevelEnum V =
+      MiniLoggerLevelEnum._('V', Colors.black, 'trace');
+  static final MiniLoggerLevelEnum D =
+      MiniLoggerLevelEnum._('D', Colors.blue, 'debug');
+  static final MiniLoggerLevelEnum I =
+      MiniLoggerLevelEnum._('I', Colors.green, 'info');
+  static final MiniLoggerLevelEnum W =
+      MiniLoggerLevelEnum._('W', Colors.orange, 'warn');
+  static final MiniLoggerLevelEnum E =
+      MiniLoggerLevelEnum._('E', Colors.red, 'error');
   static final List<MiniLoggerLevelEnum> all = [V, D, I, W, E];
 
   static MiniLoggerLevelEnum of(String level) {
@@ -36,16 +41,20 @@ class MiniLoggerLevelEnum {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      (other is MiniLoggerLevelEnum && other.runtimeType == runtimeType && level == other.level);
+      (other is MiniLoggerLevelEnum &&
+          other.runtimeType == runtimeType &&
+          level == other.level);
 
   @override
   int get hashCode => level.hashCode;
 
   @override
-  String toString() => 'LogTypeEnum{level: $level, color: $color, serverTag: $serverTag}';
+  String toString() =>
+      'LogTypeEnum{level: $level, color: $color, serverTag: $serverTag}';
 
   bool operator >=(MiniLoggerLevelEnum other) =>
-      other == null || _levelStr.indexOf(this.level) >= _levelStr.indexOf(other.level);
+      other == null ||
+      _levelStr.indexOf(this.level) >= _levelStr.indexOf(other.level);
 }
 
 /// 日志 Model
@@ -65,10 +74,12 @@ class MiniLoggerModel {
   /// 状态，0-创建，1-提交
   int status;
 
-  MiniLoggerModel(this.level, this.tag, this.content, this.createTime, this.status);
+  MiniLoggerModel(
+      this.level, this.tag, this.content, this.createTime, this.status);
 
   @override
-  String toString() => '[$tag][${level.level}][${this.createTime.toString()}]: $content';
+  String toString() =>
+      '[$tag][${level.level}][${this.createTime.toString()}]: $content';
 }
 
 class QueryLogParameter {
