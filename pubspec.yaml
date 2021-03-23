@@ -1,6 +1,6 @@
 name: mini_logger
 description: A package about the log, supports color printing, local storage, query, delete, upload events.
-version: 2.0.2
+version: 2.0.3
 homepage: https://github.com/collectFlutter/mini_logger
 
 environment:

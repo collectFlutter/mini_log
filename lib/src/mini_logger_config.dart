@@ -48,21 +48,24 @@ class MiniLoggerConfig {
   /// - [minPrintLevel] - 最小打印等级，默认 [MiniLoggerLevelEnum.D]
   /// - [minSQLiteLevel] - 最小保存日志等级，默认 [MiniLoggerLevelEnum.I]
   /// - [minUpLevel] - 最小上传等级，默认 [MiniLoggerLevelEnum.W]
-  MiniLoggerConfig(
-      {bool withPrint = true,
-      MiniLoggerLevelEnum? minPrintLevel,
-      bool withSQLite = false,
-      MiniLoggerLevelEnum? minSQLiteLevel,
-      MiniLoggerLevelEnum? minUpLevel,
-      this.upLogEvent,
-      bool withPrintColor = false,
-      String tag = "mini_log"}) {
+  MiniLoggerConfig({
+    bool withPrint = true,
+    MiniLoggerLevelEnum? minPrintLevel,
+    bool withSQLite = false,
+    MiniLoggerLevelEnum? minSQLiteLevel,
+    MiniLoggerLevelEnum? minUpLevel,
+    bool withPrintColor = false,
+    String tag = "mini_log",
+    this.upLogEvent,
+  }) {
     this._withPrint = withPrint;
     this._withSQLite =
         (Platform.isIOS || Platform.isMacOS || Platform.isAndroid) &&
             withSQLite;
+    this._withPrintColor = (!Platform.isIOS) && withPrintColor;
     this._minPrintLevel = minPrintLevel ?? MiniLoggerLevelEnum.D;
     this._minSQLiteLevel = minSQLiteLevel ?? MiniLoggerLevelEnum.I;
     this._minUpLevel = minUpLevel ?? MiniLoggerLevelEnum.W;
+    this._tag = tag;
   }
 }

@@ -808,3 +808,5 @@ doc/api/
 *.js.deps
 *.js.map
 .packages
+
+manage.py
