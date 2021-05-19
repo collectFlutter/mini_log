@@ -1,5 +1,7 @@
 import 'mini_logger_model.dart';
-import 'dart:io';
+
+// import 'dart:io';
+import 'package:flutter/foundation.dart';
 
 /// 日志上传事件
 /// [value] 等待上传的日志！
@@ -59,10 +61,14 @@ class MiniLoggerConfig {
     this.upLogEvent,
   }) {
     this._withPrint = withPrint;
-    this._withSQLite =
-        (Platform.isIOS || Platform.isMacOS || Platform.isAndroid) &&
-            withSQLite;
-    this._withPrintColor = (!Platform.isIOS) && withPrintColor;
+    this._withSQLite = ([
+          TargetPlatform.android,
+          TargetPlatform.iOS,
+          TargetPlatform.macOS
+        ].contains(defaultTargetPlatform)) &&
+        withSQLite;
+    this._withPrintColor =
+        (defaultTargetPlatform != TargetPlatform.iOS) && withPrintColor;
     this._minPrintLevel = minPrintLevel ?? MiniLoggerLevelEnum.D;
     this._minSQLiteLevel = minSQLiteLevel ?? MiniLoggerLevelEnum.I;
     this._minUpLevel = minUpLevel ?? MiniLoggerLevelEnum.W;

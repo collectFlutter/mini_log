@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
+
 import 'mini_logger_model.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
@@ -27,7 +29,8 @@ class MiniLoggerDBManage {
 
   Database? _db;
 
-  Future<Database> _initDb() async {
+  Future<Database?> _initDb() async {
+    if (kIsWeb) return null;
     if (_db == null) {
       var dbDir = await getDatabasesPath();
       String dbPath = join(dbDir, _dbName);
@@ -52,6 +55,7 @@ class MiniLoggerDBManage {
 
   FutureOr<int> insert(MiniLoggerModel log) async {
     var _dbClient = await _initDb();
+    if (_dbClient == null) return 0;
     int value = await _dbClient.insert(
       _logTabName,
       {
@@ -66,6 +70,8 @@ class MiniLoggerDBManage {
   }
 
   FutureOr<List<MiniLoggerModel>> query(QueryLogParameter parameter) async {
+    var _dbClient = await _initDb();
+    if (_dbClient == null) return [];
     StringBuffer where = _getWhereBuffer(parameter);
     where.write(" ORDER BY $_createTimeKey DESC");
 
@@ -76,7 +82,6 @@ class MiniLoggerDBManage {
       where.write(
           " LIMIT ${(parameter.pageIndex! - 1) * parameter.pageSize!},${parameter.pageSize!}");
     }
-    var _dbClient = await _initDb();
     List<Map> maps = await _dbClient.query(_logTabName,
         columns: [_levelKey, _tagKey, _contentKey, _createTimeKey, _statusKey],
         where: where.toString());
@@ -92,8 +97,9 @@ class MiniLoggerDBManage {
   }
 
   FutureOr<int> delete(QueryLogParameter parameter) async {
-    StringBuffer buffer = _getWhereBuffer(parameter);
     var _dbClient = await _initDb();
+    if (_dbClient == null) return 0;
+    StringBuffer buffer = _getWhereBuffer(parameter);
     return await _dbClient.delete(_logTabName, where: buffer.toString());
   }
 
@@ -113,13 +119,13 @@ class MiniLoggerDBManage {
       where
         ..write(and)
         ..write(
-            "strftime('s',$_createTimeKey) >= strftime('s','${parameter.minTime!.toIso8601String()}') ");
+            "strftime('%s',$_createTimeKey) >= strftime('%s','${parameter.minTime!.toIso8601String()}') ");
     }
     if (parameter.maxTime != null) {
       where
         ..write(and)
         ..write(
-            "strftime('s',$_createTimeKey) <= strftime('s','${parameter.maxTime!.toIso8601String()}')");
+            "strftime('%s',$_createTimeKey) <= strftime('%s','${parameter.maxTime!.toIso8601String()}')");
     }
     if (parameter.tag != null) {
       where

@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
@@ -12,7 +11,6 @@ void main() {
     withSQLite: true,
     upLogEvent: upLog,
     minSQLiteLevel: MiniLoggerLevelEnum.V,
-    withPrintColor: !Platform.isIOS,
   ));
   runApp(MyApp());
 }

@@ -4,6 +4,7 @@ import 'mini_logger_db_manage.dart';
 import 'mini_logger_model.dart';
 
 import 'mini_logger_config.dart';
+import 'package:flutter/foundation.dart';
 
 class L {
   /// 日志配置
@@ -80,8 +81,10 @@ class L {
         (_config.withPrint ?? false) && level >= _config.minPrintLevel;
     withUp =
         _config.upLogEvent != null && (withUp ?? level >= _config.minUpLevel);
-    withSQLite = withSQLite ??
-        ((_config.withSQLite ?? false) && level >= _config.minSQLiteLevel);
+    withSQLite = (!kIsWeb) &&
+        (withSQLite ??
+            ((_config.withSQLite ?? false) && level >= _config.minSQLiteLevel));
+
     String content = object.toString();
     DateTime _now = DateTime.now();
     MiniLoggerModel _log = MiniLoggerModel(level, tag, content, _now, 0);
