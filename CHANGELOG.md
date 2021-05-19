@@ -1,3 +1,7 @@
+## 2.0.4 - 2021-05-19
+
+* remove `dart:io`
+
 ## 2.0.3 - 2021-03-23.
 
 * bug mini_logger_config
