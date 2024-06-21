@@ -58,9 +58,10 @@ class L {
 
   static Future<List<MiniLoggerModel>> queryLogs(
       [QueryLogParameter? _parameter]) async {
-    if (_config.withSQLite ?? false)
+    if (_config.withSQLite ?? false) {
       return await MiniLoggerDBManage.internal()
           .query(_parameter ?? QueryLogParameter());
+    }
     return [];
   }
 

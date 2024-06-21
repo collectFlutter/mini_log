@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+  MyHomePage({super.key, required this.title});
 
   final String title;
 
@@ -43,7 +43,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  TextEditingController _controller;
+  TextEditingController _controller = TextEditingController();
   QueryLogParameter _parameter = QueryLogParameter();
 
   List<MiniLoggerModel> _list = [];
@@ -53,7 +53,6 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     _query();
-    _controller = TextEditingController();
     _controller.addListener(() {
       _parameter.searchKey = _controller.text.trim();
       _query();
